@@ -1,0 +1,52 @@
+import heapq
+
+# function to create the graph
+def create_graph():
+    graph = {}
+    num_vertices = int(input("Enter the number of vertices: "))
+    for i in range(num_vertices):
+        vertex = input(f"Enter the name of vertex {i+1}: ")
+        edges = {}
+        while True:
+            edge = input(f"Enter the name of an adjacent vertex of {vertex} (or 'done' if finished): ")
+            if edge == 'done':
+                break
+            weight = int(input(f"Enter the weight of the edge ({vertex}, {edge}): "))
+            edges[edge] = weight
+        graph[vertex] = edges
+    return graph
+
+# function to find the minimum spanning tree using Prim's algorithm
+def prim(graph):
+    # initialize variables
+    start_vertex = list(graph.keys())[0]
+    visited_vertices = set([start_vertex])
+    edges = [
+        (weight, start_vertex, to_vertex)
+        for to_vertex, weight in graph[start_vertex].items()
+    ]
+    heapq.heapify(edges)
+    mst_weight = 0
+    mst_edges = []
+
+    # run Prim's algorithm
+    while edges:
+        weight, frm_vertex, to_vertex = heapq.heappop(edges)
+        if to_vertex not in visited_vertices:
+            visited_vertices.add(to_vertex)
+            mst_weight += weight
+            mst_edges.append((frm_vertex, to_vertex))
+            for next_vertex, weight in graph[to_vertex].items():
+                if next_vertex not in visited_vertices:
+                    heapq.heappush(edges, (weight, to_vertex, next_vertex))
+
+    return mst_weight, mst_edges
+
+# main program
+if __name__ == '__main__':
+    graph = create_graph()
+    mst_weight, mst_edges = prim(graph)
+    print(f"The weight of the minimum spanning tree is {mst_weight}.")
+    print("The edges in the minimum spanning tree are:")
+    for frm_vertex, to_vertex in mst_edges:
+        print(f"({frm_vertex}, {to_vertex})")
