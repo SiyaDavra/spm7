@@ -1,0 +1,37 @@
+Step 1: Open Git add the cmd below in the folder in desktop
+git config --global user.name "your username"
+git config --global user.email "email@example.com"
+
+then authenticate the git with github
+
+Step 2:
+make a new repository in github 
+and paste the code in the cmd (open the cmd in respected folder)
+
+
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/SiyaDavra/spm.git    (their will be changes here in the location copy this code when u create new repo)
+git push -u origin main
+
+
+step3:
+do changes in file and save
+
+step4: copy th code below and paste in cmd
+git branch newbranch
+git checkout newbranch
+git add .
+git commit -m "Version2"
+git push origin newbranch
+
+step5: 
+go to github and create new pull request
+
+copy the path from search bar
+
+step 6: 
+paste it in  asana
+
